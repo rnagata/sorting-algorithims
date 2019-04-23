@@ -1,3 +1,5 @@
+'use strict';
+
 let unsortedArr = [10, 6, 2, 8, 3, 9, 1, 7, 4, 5, 0];
 let unsortedArr2 = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 let unsortedArr3 = [7, 9, 3, 4, 10, 8, 5, 6, 1, 2, 3];
@@ -59,11 +61,34 @@ function bubbleSort(arr){
 console.log(`Bubblesort: ${unsortedArr2} ----> ${bubbleSort(unsortedArr2)}`);
 
 /* Insertion Sort:
-Steps through the unsorted array, choosing one input element each repetition to place into the sorted
-section of the array. Shift other elements greater than the inserted value up.
+Steps through the array, inspecting previous elements for the lowest value which 
+is greater than the step value. If no greater value exists then nothing happens 
+and the next step is reached. But if there is a lowest greater value, the current 
+step's value is cut from the array and placed where the lowest greater value was
+found, shifting sorted items higher than the step value right and keeping the lower
+values in place.
 */
 
+function insertionSort(arr){
+  let result = arr;
+  let sort = 1;
+  while (sort < arr.length){
+    let newIndex = undefined;
+    for (let comp = sort; comp >= 0; comp--){
+      if (arr[comp] > arr[sort]){
+        newIndex = comp;
+      }
+    }
+    if (newIndex !== undefined){
+      let temp = arr.splice(sort, 1);
+      arr.splice(newIndex, 0, temp[0]);
+    }
+    sort++;
+  }
+  return result;
+}
 
+console.log(`Insertion Sort: ${unsortedArr3} ---> ${insertionSort2(unsortedArr3)}`);
 
 /**
  * Selection Sort:
@@ -88,7 +113,7 @@ function selectionSort(arr, start){
   arr[lowest] = temp;
   return selectionSort(arr, ++start);
 }
-console.log(`Selection Sort: ${unsortedArr3} ---> ${selectionSort(unsortedArr3, 0)}`);
+console.log(`Selection Sort: ${unsortedArr4} ---> ${selectionSort(unsortedArr4, 0)}`);
 
 /** Merge Sort:
  * Taken from: https://hackernoon.com/programming-with-js-merge-sort-deb677b777c0
@@ -134,4 +159,4 @@ function merge (left, right) {
   return result.concat(left.slice(indexLeft)).concat(right.slice(indexRight));
 }
 
-console.log(`Merge Sort: ${unsortedArr4} ---> ${mergeSort(unsortedArr4)}`);
+console.log(`Merge Sort: ${unsortedArr5} ---> ${mergeSort(unsortedArr5)}`);
